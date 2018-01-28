@@ -9,8 +9,8 @@ var send = function(res, data){
 		'Access-Control-Allow-Origin': '*'
 	}
 	message = JSON.stringify(data);
-	headers['Contnent-length'] = message.length;
-	
+	headers['Content-length'] = message.length;
+
 	res.writeHead(200, headers);
 	res.end(message);
 }
@@ -26,7 +26,7 @@ var on_request = function(request,response){
 	});
 	request.on('end', function(){
 		var params = JSON.parse(body);
-	
+
 		var room = params.room;
 		connections[room] = connections[room] || [];
 		games[room] = games[room] || false;
@@ -42,7 +42,7 @@ var on_request = function(request,response){
 			}
 		}
 		// received command other than init, so game must be started
-		games[room] = true; 
+		games[room] = true;
 		if (params.command == 'set') {
 			for (var i = connections[room].length -1; i >= 0; i--) {
 				res = connections[room][i];
